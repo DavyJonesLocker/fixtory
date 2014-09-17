@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Fixtory::VERSION
   spec.authors       = ["Brian Cardarella"]
   spec.email         = ["bcardarella@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{Fixtures and Factories living together, mass hysterica}
+  spec.description   = spec.summary
+  spec.homepage      = "https://github.com/dockyard/fixtory"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
