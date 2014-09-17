@@ -24,4 +24,20 @@ describe 'Fixtories' do
 
     assert_equal builder.owners.brian.age, 35
   end
+
+  it 'inserts into the database' do
+    path = File.expand_path('test/fixtories/test_1.rb')
+    builder = Fixtory::DSL.build_from(path)
+
+    count = Owner.count
+
+    builder.insert
+
+    refute_equal Owner.count, count
+  end
+
+  it 'provides a "fixtory" method to access a group' do
+    test_group = fixtory(:test_1)
+    assert_instance_of Fixtory::DSL::Builder, test_group
+  end
 end

@@ -2,6 +2,7 @@ require 'fixtory/dsl/row'
 
 class Fixtory::DSL::Table
   attr_accessor :name
+  attr_accessor :rows
 
   def initialize(name, &block)
     @name = name.to_s
