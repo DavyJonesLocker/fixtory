@@ -20,5 +20,13 @@ class Fixtory::DSL::Builder
     contents = File.read(path)
     instance_eval(contents, path, 1)
   end
+
+  def method_missing(method, *args, &block)
+    table = @tables.find do |table|
+      table.instance_variable_get(:@name) == method.to_s
+    end
+
+    table || super
+  end
 end
 

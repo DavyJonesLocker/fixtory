@@ -5,9 +5,9 @@ class Fixtory::DSL::Row
     instance_eval &block
   end
 
-  def method_missing(attribute, value)
-    if value
-      @attributes[attribute.to_s] = value
+  def method_missing(attribute, *args)
+    if args.first
+      @attributes[attribute.to_s] = args.first
     else
       @attributes[attribute.to_s]
     end
