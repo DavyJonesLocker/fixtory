@@ -17,4 +17,11 @@ describe 'Fixtories' do
 
     assert_equal hash, expected
   end
+
+  it 'allows access to specific rows from builder' do
+    path = File.expand_path('test/fixtories/test_1.rb')
+    builder = Fixtory::DSL.build_from(path)
+
+    assert_equal builder.owners.brian.age, 35
+  end
 end

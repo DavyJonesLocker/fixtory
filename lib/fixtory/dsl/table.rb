@@ -19,4 +19,12 @@ class Fixtory::DSL::Table
   def row(name, &block)
     @rows << Fixtory::DSL::Row.new(name, &block)
   end
+
+  def method_missing(method, *args, &block)
+    row = @rows.find do |row|
+      row.instance_variable_get(:@name) == method.to_s
+    end
+
+    row || super
+  end
 end
