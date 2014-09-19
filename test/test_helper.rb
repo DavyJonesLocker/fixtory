@@ -32,5 +32,5 @@ class Owner < ActiveRecord::Base
 end
 
 class Dog < ActiveRecord::Base
-
+  belongs_to :owner
 end

@@ -7,13 +7,6 @@ class Fixtory::DSL::Builder < BasicObject
     @_tables = []
   end
 
-  def to_hash
-    _tables.inject({}) do |hash, table|
-      hash[table._name] = table.to_hash
-      hash
-    end
-  end
-
   def _table(name, &block)
     _tables << ::Fixtory::DSL::Table.new(name, self, &block)
   end
@@ -28,6 +21,7 @@ class Fixtory::DSL::Builder < BasicObject
     _tables.each do |table|
       table._rows.each do |row|
         _connection.insert_fixture(row.instance_eval('@attributes'), table._name)
+        row.instance_eval("@inserted = true")
       end
     end
   end

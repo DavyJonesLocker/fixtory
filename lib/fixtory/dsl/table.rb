@@ -14,13 +14,6 @@ class Fixtory::DSL::Table
     @_block = block
   end
 
-  def to_hash
-    _rows.inject({}) do |hash, row|
-      hash[row.instance_eval('@name')] = row.instance_eval('@attributes')
-      hash
-    end
-  end
-
   def _model_class
     @_model_class ||= _name.singularize.camelize.constantize
   end
@@ -40,7 +33,11 @@ class Fixtory::DSL::Table
       end
 
       if row != nil
-        _model_class.find(row.id)
+        if row.instance_eval("@inserted")
+          _model_class.find(row.id)
+        else
+          row
+        end
       else
         super
       end
