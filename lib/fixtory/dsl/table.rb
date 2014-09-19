@@ -15,7 +15,7 @@ class Fixtory::DSL::Table
 
   def to_hash
     _rows.inject({}) do |hash, row|
-      hash[row.instance_variable_get(:@name)] = row.instance_variable_get(:@attributes)
+      hash[row.instance_eval('@name')] = row.instance_eval('@attributes')
       hash
     end
   end
@@ -35,10 +35,10 @@ class Fixtory::DSL::Table
       method = method.to_s
 
       row = _rows.find do |row|
-        row.instance_variable_get(:@name) == method
+        row.instance_eval('@name') == method
       end
 
-      if row.present?
+      if row != nil
         _model_class.find(row.id)
       else
         super

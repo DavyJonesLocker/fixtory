@@ -26,7 +26,7 @@ class Fixtory::DSL::Builder < BasicObject
   def _insert
     _tables.each do |table|
       table._rows.each do |row|
-        connection.insert_fixture(row.instance_variable_get(:@attributes), table._name)
+        _connection.insert_fixture(row.instance_eval('@attributes'), table._name)
       end
     end
   end
@@ -45,8 +45,7 @@ class Fixtory::DSL::Builder < BasicObject
 
   private
 
-  def connection
+  def _connection
     ::ActiveRecord::Base.connection
   end
 end
-
