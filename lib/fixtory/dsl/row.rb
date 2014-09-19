@@ -20,7 +20,7 @@ class Fixtory::DSL::Row
       if @attributes.key?(attribute)
         @attributes[attribute]
       else
-        @table.builder.send(attribute)
+        @table._builder.send(attribute)
       end
     end
   end

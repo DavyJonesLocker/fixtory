@@ -33,7 +33,7 @@ describe 'Fixtories' do
   it 'allows access to specific rows from builder' do
     path = File.expand_path('test/fixtories/test_1.rb')
     builder = Fixtory::DSL.build_from(path)
-    builder.insert
+    builder._insert
 
     assert_equal builder.owners.brian.age, 35
   end
@@ -41,17 +41,17 @@ describe 'Fixtories' do
   it 'instantiates model when retrieved' do
     path = File.expand_path('test/fixtories/test_1.rb')
     builder = Fixtory::DSL.build_from(path)
-    builder.insert
+    builder._insert
 
     assert_instance_of Owner, builder.owners.brian
   end
 
   it 'provides a "fixtory" method to access a group' do
     test_group = fixtory(:test_1)
-    assert_instance_of Fixtory::DSL::Builder, test_group
+    assert Fixtory::DSL::Builder === test_group
   end
 
-  it 'inserts into the database' do
+  it '_inserts into the database' do
     count = Owner.count
 
     fixtory(:test_1)
