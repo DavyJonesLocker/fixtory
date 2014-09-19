@@ -7,11 +7,23 @@ describe 'Fixtories' do
 
     expected = {
       'owners' => {
-        'brian' => { 'name' => 'Brian', 'age' => 35 }
+        'brian' => {
+          'id' => ActiveRecord::FixtureSet.identify('brian'),
+          'name' => 'Brian',
+          'age' => 35
+        }
       },
       'dogs' => {
-        'boomer' => { 'name' => 'Boomer', 'age' => 1.5 },
-        'wiley'  => { 'name' => 'Wiley', 'age' => 12 }
+        'boomer' => {
+          'id' => ActiveRecord::FixtureSet.identify('boomer'),
+          'name' => 'Boomer',
+          'age' => 1.5
+        },
+        'wiley'  => {
+          'id' => ActiveRecord::FixtureSet.identify('wiley'),
+          'name' => 'Wiley',
+          'age' => 12
+        }
       }
     }
 
@@ -21,8 +33,17 @@ describe 'Fixtories' do
   it 'allows access to specific rows from builder' do
     path = File.expand_path('test/fixtories/test_1.rb')
     builder = Fixtory::DSL.build_from(path)
+    builder.insert
 
     assert_equal builder.owners.brian.age, 35
+  end
+
+  it 'instantiates model when retrieved' do
+    path = File.expand_path('test/fixtories/test_1.rb')
+    builder = Fixtory::DSL.build_from(path)
+    builder.insert
+
+    assert_instance_of Owner, builder.owners.brian
   end
 
   it 'provides a "fixtory" method to access a group' do

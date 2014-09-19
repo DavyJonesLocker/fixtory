@@ -13,7 +13,7 @@ class Fixtory::DSL::Builder
   end
 
   def table(name, &block)
-    @tables << Fixtory::DSL::Table.new(name, &block)
+    @tables << Fixtory::DSL::Table.new(name, self, &block)
   end
 
   def eval_from_fixtory_file(path)
@@ -25,6 +25,7 @@ class Fixtory::DSL::Builder
     @tables.each do |table|
       table.rows.each do |row|
         connection.insert_fixture(row.instance_variable_get(:@attributes), table.name)
+        row.set_instance_variable(:@inserted, true)
       end
     end
   end
