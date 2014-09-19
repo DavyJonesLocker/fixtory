@@ -14,7 +14,7 @@ class Fixtory::DSL::Row < BasicObject
   end
 
   def _primary_key
-    'id'
+    @table._model_class.primary_key
   end
 
   def _primary_key_value
