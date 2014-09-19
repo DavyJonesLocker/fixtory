@@ -2,10 +2,12 @@ require 'fixtory/dsl/row'
 
 class Fixtory::DSL::Table
   attr_accessor :name
+  attr_accessor :builder
   attr_accessor :rows
 
-  def initialize(name, &block)
+  def initialize(name, builder, &block)
     @name = name.to_s
+    @builder = builder
     @rows = []
     instance_eval &block
   end
@@ -17,8 +19,12 @@ class Fixtory::DSL::Table
     end
   end
 
+  def model_class
+    @model_class ||= @name.singularize.camelize.constantize
+  end
+
   def row(name, &block)
-    @rows << Fixtory::DSL::Row.new(name, &block)
+    @rows << Fixtory::DSL::Row.new(name, self, &block)
   end
 
   def method_missing(method, *args, &block)
@@ -26,6 +32,10 @@ class Fixtory::DSL::Table
       row.instance_variable_get(:@name) == method.to_s
     end
 
-    row || super
+    if row
+      model_class.find(row.id)
+    else
+      super
+    end
   end
 end
