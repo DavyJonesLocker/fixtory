@@ -39,7 +39,7 @@ class Fixtory::DSL::Table
 
       if row != nil
         if row.instance_eval("@inserted")
-          _model_class.find(row.id)
+          _model_class.find(row._primary_key_value)
         else
           row
         end
