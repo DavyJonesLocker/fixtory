@@ -171,7 +171,6 @@ database insertion.
 ## Authors ##
 
 * [Brian Cardarella](http://twitter.com/bcardarella)
-* [Dan McClain](http://twitter.com/_danmcclain)
 
 [We are very thankful for the many contributors](https://github.com/dockyard/fixtory/graphs/contributors)
 
