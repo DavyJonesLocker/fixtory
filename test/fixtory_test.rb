@@ -25,6 +25,22 @@ describe 'Fixtories' do
     assert_equal builder.owners.brian, builder.dogs.boomer.owner
   end
 
+  it 'allows relationships to be set from parent' do
+    path = File.expand_path('test/fixtories/test_2.rb')
+    builder = Fixtory::DSL.build_from(path)
+    builder._insert
+
+    assert_equal [builder.dogs.boomer], builder.owners.brian.dogs
+  end
+
+  it 'allows has one relationship' do
+    path = File.expand_path('test/fixtories/test_3.rb')
+    builder = Fixtory::DSL.build_from(path)
+    builder._insert
+
+    assert_equal builder.books.moby_dick, builder.owners.brian.book
+  end
+
   it 'provides a "fixtory" method to access a group' do
     test_group = fixtory(:test_1)
     assert Fixtory::DSL::Builder === test_group

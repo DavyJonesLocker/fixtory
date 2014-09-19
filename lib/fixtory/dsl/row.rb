@@ -27,8 +27,16 @@ class Fixtory::DSL::Row < BasicObject
 
     if value
       if reflection = @table._model_class._reflections[attribute.to_sym]
-        attribute = reflection.association_foreign_key
-        value = value._primary_key_value
+        if reflection.macro == :belongs_to
+          attribute = reflection.association_foreign_key
+          value = value._primary_key_value
+        else
+          (::Array === value ? value : [value]).each do |row|
+            row.__send__(reflection.foreign_key, self._primary_key_value)
+          end
+
+          return
+        end
       end
 
       @attributes[attribute] = value

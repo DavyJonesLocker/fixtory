@@ -14,7 +14,12 @@ class Fixtory::DSL::Builder < BasicObject
   def _eval_from_fixtory_file(path)
     contents = ::File.read(path)
     instance_eval(contents, path, 1)
-    _tables.each { |table| table.instance_eval(&table._block) }
+    _tables.each do |table|
+      if table._block
+        table.instance_eval(&table._block)
+        table._block = nil
+      end
+    end
   end
 
   def _insert
