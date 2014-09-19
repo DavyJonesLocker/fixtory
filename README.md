@@ -11,6 +11,13 @@ Not quite fixtures, not quite factories.
 If it is a bug [please open an issue on
 GitHub](https://github.com/dockyard/fixtory/issues).
 
+## About
+
+Fixtory is an alternate syntax for working with fixture data. It also
+allows for grouped data scenarios rather than the "all or nothing" that
+ActiveRecord fixtures gives you. You'll be able to write your tests with
+better data isolation.
+
 ## Installation ##
 
 Add to your `Gemfile`
@@ -96,8 +103,8 @@ end
 
 users do
   brian do
-    name 'Brian'
-    email 'brian@dockyard.com'
+    name     'Brian'
+    email    'brian@dockyard.com'
     password 'password'
   end
 end
@@ -108,10 +115,10 @@ Setting inverse relationships works:
 ```ruby
 users do
   brian do
-    name 'Brian'
-    email 'brian@dockyard.com'
+    name     'Brian'
+    email    'brian@dockyard.com'
     password 'password'
-    profile profiles.one
+    profile  profiles.one
   end
 end
 
@@ -154,6 +161,12 @@ your database.
 The name you use for your rows **must** be unique for that table. It has
 no reference to the data other than acting as a lable for which to
 retrieve the data later.
+
+The values you assign to in the row block **must** be valid database
+columns. With the exception of relationships. You can assign a value to
+the associated ActiveRecord model's association name and Fixtory will do
+its best to transform this into the proper foreign key to set for
+database insertion.
 
 ## Authors ##
 
