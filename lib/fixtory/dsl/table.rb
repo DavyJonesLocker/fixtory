@@ -5,12 +5,13 @@ class Fixtory::DSL::Table
   attr_accessor :_builder
   attr_accessor :_rows
   attr_accessor :_model_class
+  attr_accessor :_block
 
   def initialize(name, builder, &block)
     @_name = name.to_s
     @_builder = builder
     @_rows = []
-    instance_eval &block
+    @_block = block
   end
 
   def to_hash
