@@ -28,6 +28,11 @@ class Fixtory::DSL::Table
     else
       method = method.to_s
 
+      if @_block
+        instance_eval(&_block)
+        @_block = nil
+      end
+
       row = _rows.find do |row|
         row.instance_eval('@name') == method
       end
