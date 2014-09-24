@@ -2,6 +2,7 @@ require 'fixtory/dsl/row'
 
 class Fixtory::DSL::Table
   attr_accessor :_name
+  attr_accessor :_table_name
   attr_accessor :_builder
   attr_accessor :_rows
   attr_accessor :_model_class
@@ -9,6 +10,7 @@ class Fixtory::DSL::Table
 
   def initialize(name, builder, &block)
     @_name = name.to_s
+    @_table_name = _model_class.table_name
     @_builder = builder
     @_rows = []
     @_block = block
@@ -19,7 +21,11 @@ class Fixtory::DSL::Table
   end
 
   def _row(name, &block)
-    _rows << ::Fixtory::DSL::Row.new(name, self, &block)
+    row = ::Fixtory::DSL::Row.new(name, self, &block)
+    if _sti_table?
+      row.instance_eval('@attributes')['type'] = _name.singularize.camelize
+    end
+    _rows << row
   end
 
   def method_missing(method, *args, &block)
@@ -47,5 +53,11 @@ class Fixtory::DSL::Table
         super
       end
     end
+  end
+
+  private
+
+  def _sti_table?
+    _name != _table_name
   end
 end
