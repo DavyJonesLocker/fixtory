@@ -53,4 +53,16 @@ describe 'Fixtories' do
 
     refute_equal Owner.count, count
   end
+
+  it 'supports STI' do
+    test_group = fixtory(:test_4)
+    snoopy = test_group.beagles.snoopy
+    marmaduke = test_group.great_danes.marmaduke
+
+    assert_equal snoopy.type, 'Beagle'
+    assert_equal marmaduke.type, 'GreatDane'
+    [snoopy, marmaduke].each do |dog|
+      assert_includes test_group.owners.brian.dogs, dog
+    end
+  end
 end

@@ -25,7 +25,7 @@ ActiveRecord::Base.establish_connection(
 )
 
 ActiveRecord::Base.connection.execute(%{CREATE TABLE owners (id INTEGER PRIMARY KEY, name TEXT, age DOUBLE);})
-ActiveRecord::Base.connection.execute(%{CREATE TABLE dogs (id INTEGER PRIMARY KEY, name TEXT, age DOUBLE, owner_id INTEGER);})
+ActiveRecord::Base.connection.execute(%{CREATE TABLE dogs (id INTEGER PRIMARY KEY, name TEXT, age DOUBLE, owner_id INTEGER, type TEXT);})
 ActiveRecord::Base.connection.execute(%{CREATE TABLE books (isbn INTEGER PRIMARY KEY, name TEXT, owner_id INTEGER);})
 
 class Owner < ActiveRecord::Base
@@ -38,4 +38,10 @@ class Dog < ActiveRecord::Base
 end
 
 class Book < ActiveRecord::Base
+end
+
+class Beagle < Dog
+end
+
+class GreatDane < Dog
 end

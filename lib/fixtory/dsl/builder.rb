@@ -25,7 +25,7 @@ class Fixtory::DSL::Builder < BasicObject
   def _insert
     _tables.each do |table|
       table._rows.each do |row|
-        _connection.insert_fixture(row.instance_eval('@attributes'), table._name)
+        _connection.insert_fixture(row.instance_eval('@attributes'), table._table_name)
         row.instance_eval("@inserted = true")
       end
     end
