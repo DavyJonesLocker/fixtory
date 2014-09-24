@@ -45,7 +45,12 @@ end
 
 ### Rspec
 
-*Someone please write this, I don't use rspec*
+```ruby
+# spec/support/fixtory.rb
+RSpec.configure do |config|
+  config.include Fixtory::Methods
+end
+```
 
 ## Usage
 
