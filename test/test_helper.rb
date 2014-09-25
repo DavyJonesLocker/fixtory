@@ -4,6 +4,7 @@ require 'fixtory/methods'
 require 'byebug'
 require 'active_record'
 require 'database_cleaner'
+require 'minitest/moar'
 
 DatabaseCleaner.strategy = :truncation
 
