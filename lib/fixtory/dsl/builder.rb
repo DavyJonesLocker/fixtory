@@ -2,6 +2,7 @@ require 'fixtory/dsl/table'
 
 class Fixtory::DSL::Builder < BasicObject
   attr_accessor :_tables
+  attr_accessor :_inserted
 
   def initialize
     @_tables = []
@@ -29,6 +30,8 @@ class Fixtory::DSL::Builder < BasicObject
         row.instance_eval("@inserted = true")
       end
     end
+
+    self._inserted = true
   end
 
   def method_missing(method, *args, &block)

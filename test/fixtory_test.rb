@@ -1,6 +1,10 @@
 require 'test_helper'
 
 describe 'Fixtories' do
+  after do
+    Fixtory.instance_variable_set(:@identity_map, {})
+  end
+
   it 'allows access to specific rows from builder' do
     path = File.expand_path('test/fixtories/test_1.rb')
     builder = Fixtory::DSL.build_from(path)
@@ -64,5 +68,16 @@ describe 'Fixtories' do
     [snoopy, marmaduke].each do |dog|
       assert_includes test_group.owners.brian.dogs, dog
     end
+  end
+
+  it 'caches data for future use rather than reading from disk twice' do
+    build_from = Fixtory::DSL.method(:build_from)
+
+    stub Fixtory::DSL, :build_from, build_from, Fixtory.path_for(:test_1) do
+      fixtory(:test_1)
+      fixtory(:test_1)
+    end
+
+    refute_called Fixtory::DSL, :build_from, 2
   end
 end

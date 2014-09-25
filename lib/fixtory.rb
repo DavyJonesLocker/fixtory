@@ -20,6 +20,10 @@ module Fixtory
   def self.path_for(group_name)
     File.join(path, "#{group_name}.rb")
   end
+
+  def self.identity_map
+    @identity_map ||= {}
+  end
 end
 
 require 'fixtory/dsl'
