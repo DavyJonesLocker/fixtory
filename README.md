@@ -30,7 +30,7 @@ In your `test_helper.rb` or `spec_helper.rb` add the following:
 
 ```ruby
 require 'fixtory'
-require 'fixtory/methods'`
+require 'fixtory/methods'
 ```
 
 ### Minitest
