@@ -38,7 +38,7 @@ require 'fixtory/methods'
 Mix the module:
 
 ```ruby
-class Minitest::Spec
+class Minitest::Test
   include Fixtory::Methods
 end
 ```
