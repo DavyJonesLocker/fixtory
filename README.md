@@ -90,7 +90,7 @@ data_group.profiles.one
 => <Profile role: 'Developer'>
 
 data_group.profiles.one.user
-=. <User name: 'Brian'>
+=> <User name: 'Brian'>
 ```
 
 Fixtory is smart enough to handle assigning all of your relationships.
